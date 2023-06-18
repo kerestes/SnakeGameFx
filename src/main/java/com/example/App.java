@@ -19,9 +19,12 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("snakegame.fxml"));
         scene = new Scene(root);
+
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        
         stage.setScene(scene);
         stage.show();
-        stage.setTitle("Snake Game");
+        stage.setResizable(false);
     }
 
     public static void main(String[] args) {
