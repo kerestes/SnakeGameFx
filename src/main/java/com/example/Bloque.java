@@ -15,6 +15,10 @@ public class Bloque {
     private boolean verifierQueue;
     private Rectangle nourriture = new Rectangle(38, 38);
 
+    public Bloque(){
+        nourriture.setId("nourriture");
+    }
+
     public void setNourriture(Rectangle nourriture) {
         this.nourriture = nourriture;
     }

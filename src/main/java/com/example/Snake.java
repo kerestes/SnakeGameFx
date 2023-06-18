@@ -97,6 +97,57 @@ public class Snake {
         
     }
 
+    public void mouvement(Rectangle nourriture, char directionJouer) {
+        int[] dir = new int[2]; 
+        switch(directionJouer){
+            case 'D':
+                dir[0] = 1;
+                dir[1] = 0;
+                if(verifierLimites(dir, nourriture)){
+                    for(int i=listRect.size()-1; i>0; i--){
+                        listRect.get(i).setX(listRect.get(i-1).getX());
+                        listRect.get(i).setY(listRect.get(i-1).getY());
+                    }
+                    listRect.get(0).setX(listRect.get(0).getX()+dir[0]);
+                }
+                break;
+            case 'G':
+                dir[0] = -1;
+                dir[1] = 0;
+                if(verifierLimites( dir, nourriture)){
+                    for(int i=listRect.size()-1; i>0; i--){
+                        listRect.get(i).setX(listRect.get(i-1).getX());
+                        listRect.get(i).setY(listRect.get(i-1).getY());
+                    }
+                    listRect.get(0).setX(listRect.get(0).getX()+dir[0]);
+                }
+                break;
+            case 'H':
+                dir[0] = 0;
+                dir[1] = -1;
+                if(verifierLimites( dir, nourriture)){
+                    for(int i=listRect.size()-1; i>0; i--){
+                        listRect.get(i).setX(listRect.get(i-1).getX());
+                        listRect.get(i).setY(listRect.get(i-1).getY());
+                    }
+                    listRect.get(0).setY(listRect.get(0).getY()+dir[1]);
+                }
+                break;
+            case 'B':
+                dir[0] = 0;
+                dir[1] = 1;
+                if(verifierLimites( dir, nourriture)){
+                    for(int i=listRect.size()-1; i>0; i--){
+                        listRect.get(i).setX(listRect.get(i-1).getX());
+                        listRect.get(i).setY(listRect.get(i-1).getY());
+                    }
+                    listRect.get(0).setY(listRect.get(0).getY()+dir[1]);
+                }
+                break;
+        }
+        
+    }
+
     private boolean verifierLimites(int[] dir, Rectangle nourriture) {
         if(listRect.get(0).getX()+dir[0] > 19 || listRect.get(0).getX()+dir[0] < 0 || listRect.get(0).getY()+dir[1] > 13 || listRect.get(0).getY()+dir[1] < 0){
             return false;
@@ -108,7 +159,6 @@ public class Snake {
         }
 
         if (listRect.get(0).getX()+dir[0] == nourriture.getX() && listRect.get(0).getY()+dir[1] == nourriture.getY()){
-            System.out.println("entrou");
             Rectangle rect;
             rect = new Rectangle(38, 38);
             rect.getStyleClass().add("rect");
