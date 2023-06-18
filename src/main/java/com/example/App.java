@@ -24,6 +24,7 @@ public class App extends Application {
         
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Snake Game");
         stage.setResizable(false);
     }
 
