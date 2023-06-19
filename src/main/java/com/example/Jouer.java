@@ -28,6 +28,7 @@ public class Jouer{
     public void trouverChemin(){
 
         nd.clear();
+        listMouv.clear();
         bloqueTrouve = false;
         finNodeDijkstra = false;
 
@@ -58,7 +59,6 @@ public class Jouer{
                 break;
             }
         }
-        System.out.println(listMouv.size());
     }
 
     public void verifierDirection(NodeDijkstra node){
@@ -143,13 +143,6 @@ public class Jouer{
         nd.addLast(new NodeDijkstra(nodePere.getCorpSnake(), nodeFilsDirection, nouvellePosition, nodePere));
 
         if(nd.getLast().getCorpSnake()[0][0] == bloque.getNourriture().getX() && nd.getLast().getCorpSnake()[0][1] == bloque.getNourriture().getY()){
-            System.out.println("===============");
-            System.out.println(nd.size());
-            System.out.println("Cabeça: " + nd.getFirst().getCorpSnake()[0][0] + " - " + nd.getFirst().getCorpSnake()[0][1]);
-            System.out.println("rabo: " + nd.getFirst().getCorpSnake()[nd.getFirst().getCorpSnake().length-1][0] + " - " + nd.getFirst().getCorpSnake()[nd.getFirst().getCorpSnake().length-1][1]);
-            System.out.println("Cabeça: " + nd.getLast().getCorpSnake()[0][0] + " - " + nd.getLast().getCorpSnake()[0][1]);
-            System.out.println("rabo: " + nd.getLast().getCorpSnake()[nd.getLast().getCorpSnake().length-1][0] + " - " + nd.getLast().getCorpSnake()[nd.getLast().getCorpSnake().length-1][1]);
-            System.out.println("===============");
             nd.getLast().setBloque(true);
             bloqueTrouve = true;
         }

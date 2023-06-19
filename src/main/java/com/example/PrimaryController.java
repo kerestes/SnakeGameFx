@@ -117,6 +117,8 @@ public class PrimaryController implements Initializable{
     }
 
     public void finJeu(){
+        gp.setStyle("-fx-background-color: #ffffb6");
+
         gp.getChildren().clear();
         snake.getListRect().clear();
 
@@ -126,12 +128,14 @@ public class PrimaryController implements Initializable{
 
             @Override
             public void run() {
-                demarrer.setVisible(true);
-                principal.setVisible(true);
-                point.setVisible(false);
-                finJeu.setVisible(false);
-                demarrerDijkstra();
-                timer.cancel();
+                Platform.runLater(()->{
+                    demarrer.setVisible(true);
+                    principal.setVisible(true);
+                    point.setVisible(false);
+                    finJeu.setVisible(false);
+                    timer.cancel();
+                    demarrerDijkstra();
+                });
             }
             
         }, 2000);
@@ -140,6 +144,7 @@ public class PrimaryController implements Initializable{
     public void demarrerDijkstra(){
         creerGridPane();
         jouer.trouverChemin();
+        
         timer = new Timer();
         timer.schedule(new TimerTask() {
 
@@ -147,12 +152,10 @@ public class PrimaryController implements Initializable{
             public void run() {
                 Platform.runLater(()->{
                     if(jouer.getListMouv().size() == 0){
-                        System.out.println("===========");
-                        System.out.println(snake.getListRect().get(0).getX() + " - " + snake.getListRect().get(0).getY());
                         timer.cancel();
-                        /*gp.getChildren().clear();
+                        gp.getChildren().clear();
                         snake.getListRect().clear();
-                        demarrerDijkstra();*/
+                        demarrerDijkstra();
                     } else {                        
                         snake.mouvement(bloque.getNourriture(), jouer.getListMouv().removeFirst());
 
@@ -168,19 +171,22 @@ public class PrimaryController implements Initializable{
                             gp.add(r, (int)r.getX(), (int)r.getY());
                         }
 
-                        gp.add(bloque.getNourriture(), (int) bloque.getNourriture().getX(), (int) bloque.getNourriture().getY());     
+                        if (snake.getListRect().size() < 280){
+                            gp.add(bloque.getNourriture(), (int) bloque.getNourriture().getX(), (int) bloque.getNourriture().getY());     
+                        }
                     }
                 });
             }
 
-        }, 100, 60);
+        }, 100, 100);
     }
 
     public void creerGridPane(){
         snake.creerSerpent();
         snake.setDirection('D');
-        for(int i=0; i<snake.getListRect().size(); i++){
-            gp.add(snake.getListRect().get(i), (int)snake.getListRect().get(i).getX(), (int)snake.getListRect().get(i).getY());
+        dir = 'D';
+        for(Rectangle r: snake.getListRect()){
+            gp.add(r, (int)r.getX(), (int)r.getY());
         }
 
         bloque.mouvementBloque(snake.getListRect());

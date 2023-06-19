@@ -28,16 +28,18 @@ public class Bloque {
     }
 
     public void mouvementBloque(LinkedList<Rectangle> listRect){
-        do{
-            verifierQueue = true;
-            x = random.nextInt(20);
-            y = random.nextInt(14);
-            for(Rectangle r: listRect){
-                if(r.getX() == x && r.getY() == y){
-                    verifierQueue = false;
+        if (listRect.size() != 280){
+            do{
+                verifierQueue = true;
+                x = random.nextInt(20);
+                y = random.nextInt(14);
+                for(Rectangle r: listRect){
+                    if(r.getX() == x && r.getY() == y){
+                        verifierQueue = false;
+                    }
                 }
-            }
-        }while(!verifierQueue);
+            }while(!verifierQueue);
+        } 
         nourriture.setX(x);
         nourriture.setY(y);
     }

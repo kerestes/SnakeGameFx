@@ -155,7 +155,6 @@ public class Snake {
         }
         for (int i=1; i<listRect.size(); i++){
             if (listRect.get(i).getX() == listRect.get(0).getX()+dir[0] && listRect.get(i).getY() == listRect.get(0).getY()+dir[1]){
-                System.out.println("bateu");
                 return false;
             }
         }
