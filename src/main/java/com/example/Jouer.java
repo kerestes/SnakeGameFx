@@ -21,6 +21,10 @@ public class Jouer{
         return listMouv;
     }
 
+    public LinkedList<NodeDijkstra> getNd() {
+        return nd;
+    }
+
     public void trouverChemin(){
 
         nd.clear();
@@ -49,37 +53,52 @@ public class Jouer{
                 while(nodeNourriture.getNodePere() != null){
                     listMouv.addFirst(nodeNourriture.getDirectionNode());
                     nodeNourriture = nodeNourriture.getNodePere();
+
                 }
                 break;
             }
         }
-
+        System.out.println(listMouv.size());
     }
 
     public void verifierDirection(NodeDijkstra node){
         switch(node.getDirectionNode()){
             case 'D':
-                verifierLimites(node, 'H');
                 verifierLimites(node, 'D');
-                verifierLimites(node, 'B');
+                if(node.getCorpSnake()[0][0]%2 == 0 ){
+                    verifierLimites(node, 'H');
+                } else {
+                    verifierLimites(node, 'B');
+                }
                 node.setVisite(true);
                 break;
             case 'G':
-                verifierLimites(node, 'B');
+
                 verifierLimites(node, 'G');
-                verifierLimites(node, 'H');
+                
+                if(node.getCorpSnake()[0][0]%2 == 0 ){
+                    verifierLimites(node, 'H');
+                } else {
+                    verifierLimites(node, 'B');
+                }
                 node.setVisite(true);
                 break;
             case 'H':
-                verifierLimites(node, 'D');
                 verifierLimites(node, 'H');
-                verifierLimites(node, 'G');
+                if(node.getCorpSnake()[0][1]%2 == 0 ){
+                    verifierLimites(node, 'D');
+                } else {
+                    verifierLimites(node, 'G');
+                }
                 node.setVisite(true);
                 break;
             case 'B':
-                verifierLimites(node, 'G');
-                verifierLimites(node, 'B');
-                verifierLimites(node, 'D');
+                verifierLimites(node, 'B'); 
+                if(node.getCorpSnake()[0][1]%2 == 0 ){
+                    verifierLimites(node, 'D');
+                } else {
+                    verifierLimites(node, 'G');
+                }
                 node.setVisite(true);
                 break;
         }
@@ -124,6 +143,13 @@ public class Jouer{
         nd.addLast(new NodeDijkstra(nodePere.getCorpSnake(), nodeFilsDirection, nouvellePosition, nodePere));
 
         if(nd.getLast().getCorpSnake()[0][0] == bloque.getNourriture().getX() && nd.getLast().getCorpSnake()[0][1] == bloque.getNourriture().getY()){
+            System.out.println("===============");
+            System.out.println(nd.size());
+            System.out.println("Cabeça: " + nd.getFirst().getCorpSnake()[0][0] + " - " + nd.getFirst().getCorpSnake()[0][1]);
+            System.out.println("rabo: " + nd.getFirst().getCorpSnake()[nd.getFirst().getCorpSnake().length-1][0] + " - " + nd.getFirst().getCorpSnake()[nd.getFirst().getCorpSnake().length-1][1]);
+            System.out.println("Cabeça: " + nd.getLast().getCorpSnake()[0][0] + " - " + nd.getLast().getCorpSnake()[0][1]);
+            System.out.println("rabo: " + nd.getLast().getCorpSnake()[nd.getLast().getCorpSnake().length-1][0] + " - " + nd.getLast().getCorpSnake()[nd.getLast().getCorpSnake().length-1][1]);
+            System.out.println("===============");
             nd.getLast().setBloque(true);
             bloqueTrouve = true;
         }

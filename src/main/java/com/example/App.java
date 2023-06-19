@@ -13,12 +13,10 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
-
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("snakegame.fxml"));
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
 
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         

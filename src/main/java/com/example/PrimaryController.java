@@ -14,7 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 public class PrimaryController implements Initializable{
 
@@ -144,12 +146,13 @@ public class PrimaryController implements Initializable{
             @Override
             public void run() {
                 Platform.runLater(()->{
-                    //System.out.println(jouer.getListMouv().size() + " - " + jouer.getListMouv().getFirst());
                     if(jouer.getListMouv().size() == 0){
+                        System.out.println("===========");
+                        System.out.println(snake.getListRect().get(0).getX() + " - " + snake.getListRect().get(0).getY());
                         timer.cancel();
-                        gp.getChildren().clear();
+                        /*gp.getChildren().clear();
                         snake.getListRect().clear();
-                        demarrerDijkstra();
+                        demarrerDijkstra();*/
                     } else {                        
                         snake.mouvement(bloque.getNourriture(), jouer.getListMouv().removeFirst());
 
@@ -170,11 +173,12 @@ public class PrimaryController implements Initializable{
                 });
             }
 
-        }, 100, 100);
+        }, 100, 60);
     }
 
     public void creerGridPane(){
         snake.creerSerpent();
+        snake.setDirection('D');
         for(int i=0; i<snake.getListRect().size(); i++){
             gp.add(snake.getListRect().get(i), (int)snake.getListRect().get(i).getX(), (int)snake.getListRect().get(i).getY());
         }
