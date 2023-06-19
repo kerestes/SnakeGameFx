@@ -24,6 +24,7 @@ public class Jouer{
     public void trouverChemin(){
 
         nd.clear();
+        listMouv.clear();
         bloqueTrouve = false;
         finNodeDijkstra = false;
 

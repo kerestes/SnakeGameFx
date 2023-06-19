@@ -1,19 +1,14 @@
 package com.example;
 
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 
 public class PrimaryController implements Initializable{
@@ -124,12 +119,14 @@ public class PrimaryController implements Initializable{
 
             @Override
             public void run() {
-                demarrer.setVisible(true);
-                principal.setVisible(true);
-                point.setVisible(false);
-                finJeu.setVisible(false);
-                demarrerDijkstra();
-                timer.cancel();
+                Platform.runLater(()->{
+                    demarrer.setVisible(true);
+                    principal.setVisible(true);
+                    point.setVisible(false);
+                    finJeu.setVisible(false);
+                    timer.cancel();
+                    demarrerDijkstra();
+                });
             }
             
         }, 2000);
@@ -137,6 +134,7 @@ public class PrimaryController implements Initializable{
 
     public void demarrerDijkstra(){
         creerGridPane();
+        gp.setStyle("-fx-background-color: #ffffb6");
         jouer.trouverChemin();
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -144,7 +142,6 @@ public class PrimaryController implements Initializable{
             @Override
             public void run() {
                 Platform.runLater(()->{
-                    //System.out.println(jouer.getListMouv().size() + " - " + jouer.getListMouv().getFirst());
                     if(jouer.getListMouv().size() == 0){
                         timer.cancel();
                         gp.getChildren().clear();
@@ -152,7 +149,6 @@ public class PrimaryController implements Initializable{
                         demarrerDijkstra();
                     } else {                        
                         snake.mouvement(bloque.getNourriture(), jouer.getListMouv().removeFirst());
-
                         if(jouer.getListMouv().size() == 0){
                             bloque.mouvementBloque(snake.getListRect());
                             gp.setColumnIndex(bloque.getNourriture(), (int) bloque.getNourriture().getX());
@@ -160,6 +156,7 @@ public class PrimaryController implements Initializable{
 
                             jouer.trouverChemin();
                         }
+
                         gp.getChildren().clear();
                         for(Rectangle r: snake.getListRect()){
                             gp.add(r, (int)r.getX(), (int)r.getY());
@@ -175,6 +172,8 @@ public class PrimaryController implements Initializable{
 
     public void creerGridPane(){
         snake.creerSerpent();
+        dir = 'D';
+        snake.setDirection('D');
         for(int i=0; i<snake.getListRect().size(); i++){
             gp.add(snake.getListRect().get(i), (int)snake.getListRect().get(i).getX(), (int)snake.getListRect().get(i).getY());
         }
