@@ -2,7 +2,6 @@ package com.example;
 
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Set;
 
 import javafx.scene.shape.Rectangle;
 
@@ -28,6 +27,7 @@ public class Bloque {
     }
 
     public void mouvementBloque(LinkedList<Rectangle> listRect){
+        //si toutes les cases sont occupées il n'y a plus de espace pour le snake
         if (listRect.size() != 280){
             do{
                 verifierQueue = true;

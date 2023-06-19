@@ -11,7 +11,7 @@ public class NodeDijkstra {
     private char directionNode;
     private NodeDijkstra nodePere = null;
     private boolean visite = false;
-    private boolean bloque = false;
+    private boolean bloqueNourriture = false;
 
     public NodeDijkstra(LinkedList<Rectangle> snake, char dir){
         corpSnake = new int[snake.size()][2];
@@ -23,6 +23,7 @@ public class NodeDijkstra {
     }
 
     public NodeDijkstra(int[][] corpSnake, char dir, int[] nouvellePosition, NodeDijkstra nodePere){
+        
         this.corpSnake = new int[corpSnake.length][2];
         this.corpSnake[0][0] = corpSnake[0][0] + nouvellePosition[0];
         this.corpSnake[0][1] = corpSnake[0][1] + nouvellePosition[1];
@@ -32,18 +33,19 @@ public class NodeDijkstra {
         }
         this.directionNode = dir;
         this.nodePere = nodePere;
+        
     }
 
     public char getDirectionNode() {
         return directionNode;
     }
 
-    public void setBloque(boolean bloque) {
-        this.bloque = bloque;
+    public void setBloqueNourriture(boolean bloque) {
+        this.bloqueNourriture = bloque;
     }
 
-    public boolean getBloque(){
-        return bloque;
+    public boolean getBloqueNourriture(){
+        return bloqueNourriture;
     }
 
     public void setVisite(boolean visite) {
