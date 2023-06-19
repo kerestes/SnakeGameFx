@@ -108,7 +108,6 @@ public class Snake {
         }
 
         if (listRect.get(0).getX()+dir[0] == nourriture.getX() && listRect.get(0).getY()+dir[1] == nourriture.getY()){
-            System.out.println("entrou");
             Rectangle rect;
             rect = new Rectangle(38, 38);
             rect.getStyleClass().add("rect");

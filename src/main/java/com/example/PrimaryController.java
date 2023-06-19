@@ -38,7 +38,6 @@ public class PrimaryController implements Initializable{
     private Button demarrer;
     
     public void clavier(KeyEvent k){
-        
         switch(k.getCode()){
             case UP:
                 if(snake.getDirection() != 'B'){
@@ -65,6 +64,8 @@ public class PrimaryController implements Initializable{
     
     public void demarrerJeu(ActionEvent e){
         
+        dir = 'D';
+        snake.getListRect().clear();
         principal.setVisible(false);
         demarrer.setVisible(false);
         point.setVisible(true);
