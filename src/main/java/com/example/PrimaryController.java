@@ -21,7 +21,7 @@ public class PrimaryController implements Initializable{
     private Snake snake = new Snake();
     private Bloque bloque = new Bloque();
     private char dir = 'D';
-    private int valeurPoint = 0;
+    private int valeurPoint;
     private Timer timer;
 
     @FXML
@@ -38,6 +38,7 @@ public class PrimaryController implements Initializable{
     private Button demarrer;
     
     public void clavier(KeyEvent k){
+        System.out.println(k.getCode());
         switch(k.getCode()){
             case UP:
                 if(snake.getDirection() != 'B'){
@@ -66,6 +67,8 @@ public class PrimaryController implements Initializable{
         
         dir = 'D';
         snake.getListRect().clear();
+        valeurPoint = 0;
+
         principal.setVisible(false);
         demarrer.setVisible(false);
         point.setVisible(true);
@@ -79,7 +82,9 @@ public class PrimaryController implements Initializable{
         }
 
         bloque.mouvementBloque(snake.getListRect());
+
         bloque.getNourriture().setId("nourriture");
+        
         gp.add(bloque.getNourriture(), (int) bloque.getNourriture().getX(), (int) bloque.getNourriture().getY());
 
         declancherTimer();
@@ -124,7 +129,6 @@ public class PrimaryController implements Initializable{
 
             @Override
             public void run() {
-                System.out.println("entrou?");
                 gp.setVisible(false);
                 demarrer.setVisible(true);
                 principal.setVisible(true);
